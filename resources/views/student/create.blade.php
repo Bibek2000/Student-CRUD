@@ -125,7 +125,7 @@
            @endif
         <br>
         <label for="phone">Phone Number:</label><br><p>
-            <input type="number" placeholder="Phone" oninput="this.className = ''" name="phone"></p>
+            <input type="text" placeholder="Phone" oninput="this.className = ''" name="phone"></p>
             <span class="error text-danger" id="phone"></span>
             @if ($errors->has('phone'))
                 <span class="text-danger">{{ $errors->first('phone') }}</span>

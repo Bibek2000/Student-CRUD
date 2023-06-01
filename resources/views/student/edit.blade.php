@@ -130,7 +130,11 @@
             <input type="text" placeholder="Address" oninput="this.className = ''" name="address" value="{{$data['record']->address}}"></p>
         <span class="error text-danger" id="address"></span><br>
         <br>
+        @if($data['record']->image)
         <img src="{{ asset('public/Image/'.$data['record']->image) }}" alt="Student Image" height="100px" width="100">
+        @else
+            <img src="{{asset('public/Image/default.jpeg')}}" alt="Image" height="50" width="50">
+        @endif
         <p>Replace Image</p>
         Image:
         <div id="imagePreviewContainer" style="display: none;">
