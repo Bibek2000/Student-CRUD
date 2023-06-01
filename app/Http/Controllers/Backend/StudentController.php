@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StudentRequest;
 use Illuminate\Http\Request;
 use App\Models\Backend\Student;
 use App\Models\Backend\Education;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -20,21 +22,9 @@ class StudentController extends Controller
         return view('student.create');
     }
 
-    public function store(Request $student)
+    public function store(StudentRequest $student)
     {
-        $data = $student->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'gender' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'dob' => 'required',
-            'level' => 'array|required',
-            'college' => 'array|required',
-            'university' => 'array|required',
-            'start_date' => 'array|required',
-            'end_date' => 'array|required'
-        ]);
+        $data = $student->validated();
         if ($student->file('image')) {
             $file = $student->file('image');
             $filename = date('YmdHi') . $file->getClientOriginalName();
@@ -84,21 +74,9 @@ class StudentController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(StudentRequest $request, $id)
     {
-        $data = $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'gender' => 'required',
-            'phone' => 'required',
-            'address' => 'required',
-            'dob' => 'required',
-            'level' => 'array|required',
-            'college' => 'array|required',
-            'university' => 'array|required',
-            'start_date' => 'array|required',
-            'end_date' => 'array|required'
-        ]);
+        $data = $request->validated();
 
         $student = Student::findOrFail($id);
 
@@ -107,7 +85,7 @@ class StudentController extends Controller
             if (file_exists($oldImagePath)) {
                 unlink($oldImagePath);
             }
-    }
+        }
         if ($request->file('image')) {
             $file = $request->file('image');
             $filename = date('YmdHi') . $file->getClientOriginalName();
@@ -115,6 +93,7 @@ class StudentController extends Controller
 
             $data['image'] = $filename;
         }
+
 
         $student->update($data);
 

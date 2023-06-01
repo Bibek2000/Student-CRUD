@@ -21,7 +21,13 @@
             </tr>
             <tr>
                 <th>Profile</th>
-                <td><img src="{{ asset('public/Image/'.$data['record']->image) }}" alt="Image" height="50" width="50"></td>
+                <td>
+                    @if($data['record']->image)
+                        <img src="{{ asset('public/Image/'.$data['record']->image) }}" alt="Image" height="50" width="50">
+                    @else
+                        <img src={{asset('public/Image/default.jpeg')}} alt="Image" height="50" width="50">
+                    @endif
+                </td>
             </tr>
             <tr>
                 <th>Gender</th>

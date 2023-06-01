@@ -1,95 +1,61 @@
 @extends('layouts.app1')
 @section('title','Create')
-
 <style>
-    * {
-        box-sizing: border-box;
-    }
+/* Form container */
+form {
+background-color: #f2f2f2;
+padding: 20px;
+width: 400px;
+margin: 0 auto;
+}
 
-    body {
-        background-color: #f1f1f1;
-    }
+/* Form heading */
+form h1 {
+text-align: center;
+margin-bottom: 20px;
+}
 
-    #regForm {
-        background-color: #ffffff;
-        margin-left: 5px;
-        font-family: Raleway;
-        padding: 40px;
-        width: 95%;
-        min-width: 300px;
-    }
+/* Form input fields */
+form input {
+width: 100%;
+padding: 12px;
+margin-top: 8px;
+margin-bottom: 16px;
+border: 1px solid #ccc;
+box-sizing: border-box;
+}
 
-    h1 {
-        text-align: center;
-    }
+/* Error message */
+.text-danger {
+color: red;
+margin-top: -10px;
+margin-bottom: 10px;
+}
 
-    input {
-        padding: 10px;
-        width: 100%;
-        font-size: 17px;
-        font-family: Raleway;
-        border: 1px solid #aaaaaa;
-    }
-    /* Mark input boxes that gets an error on validation: */
+/* Form button */
+form button {
+background-color: #4CAF50;
+color: white;
+padding: 12px 20px;
+border: none;
+cursor: pointer;
+width: 100%;
+}
 
-    input.invalid {
-        background-color: #ffdddd;
-    }
-    /* Hide all steps by default: */
+/* Form button hover effect */
+form button:hover {
+opacity: 0.8;
+}
 
-    .tab {
-        display: none;
-    }
+/* Tab styling (optional) */
+.tab {
+display: block;
+}
 
-    button {
-        background-color: #04AA6D;
-        color: #ffffff;
-        border: none;
-        padding: 10px 20px;
-        font-size: 17px;
-        font-family: Raleway;
-        cursor: pointer;
-    }
+.tab p {
+margin-top: 0;
+}
 
-    button:hover {
-        opacity: 0.8;
-    }
-
-    #prevBtn {
-        background-color: #bbbbbb;
-    }
-    .error{
-        color:red;
-    }
-    /* Make circles that indicate the steps of the form: */
-
-    .step {
-        height: 15px;
-        width: 15px;
-        margin: 0 2px;
-        background-color: #bbbbbb;
-        border: none;
-        border-radius: 50%;
-        display: inline-block;
-        opacity: 0.5;
-    }
-
-    .step.active {
-        opacity: 1;
-    }
-    /* Mark the steps that are finished and valid: */
-
-    .step.finish {
-        background-color: #04AA6D;
-    }
-
-
-    .table{
-        width:100%;
-    }
-    th,td{
-        width:100px;
-    }
 </style>
 @section('content')
 

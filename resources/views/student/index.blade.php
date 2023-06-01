@@ -91,6 +91,7 @@
 
 </style>
 @section('content')
+
 <table>
     <tr>
         <th>S.N</th>
@@ -110,7 +111,11 @@
             <td>{{$record->phone}}</td>
             <td>{{$record->address}}</td>
             <td>
+                @if($record->image)
                 <img src="{{ asset('public/Image/'.$record->image) }}" alt="Image" height="50" width="50">
+                @else
+                    <img src="{{asset('public/Image/default.jpeg')}}" alt="Image" height="50" width="50">
+                @endif
             </td>
             <td>{{$record->dob}}</td>
             <th class="links">

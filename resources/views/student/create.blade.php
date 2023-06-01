@@ -15,7 +15,7 @@
         margin-left: 50px;
         font-family: Chalkboard;
         padding: 40px;
-        width: 60%;
+        width: 90%;
         min-width: 300px;
     }
 
@@ -31,19 +31,26 @@
         border: 1px solid #aaaaaa;
     }
 
-    .male{
-        width: 20%;
+    div.flex-container {
         display: flex;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
-    .female{
-        margin-left: 8px;
-        width: 20%;
+    div.gender-group {
         display: flex;
+        flex-direction: row;
     }
-    .error{
-        color: red;
-        display: block;
+
+    div.gender-group > div {
+        margin-right: 10px;
+    }
+    tr.error-edu {
+        background-color: white !important;
+        border: none !important;
+    }
+    tr.error-edu td {
+        border: none;
     }
 
 
@@ -104,32 +111,36 @@
     <div class="tab">
         <label for="name">Name:</label><br><p>
             <input type="text" placeholder="Full name" oninput="this.className = ''" name="name"></p>
-        <span class="error" id="name"></span>
+        <span class="error text-danger" id="name"></span>
 
     @if ($errors->has('name'))
                 <span class="text-danger">{{ $errors->first('name') }}</span>
            @endif
+        <br>
         <label for="email">Email:</label><br> <p>
             <input type="email" placeholder="Email" oninput="this.className = ''" name="email"></p>
-            <span class="error email-error" id="email"></span>
+            <span class="error email-error text-danger" id="email"></span>
             @if ($errors->has('email'))
                 <span class="text-danger">{{ $errors->first('email') }}</span>
            @endif
+        <br>
         <label for="phone">Phone Number:</label><br><p>
             <input type="number" placeholder="Phone" oninput="this.className = ''" name="phone"></p>
-            <span class="error" id="phone"></span>
+            <span class="error text-danger" id="phone"></span>
             @if ($errors->has('phone'))
                 <span class="text-danger">{{ $errors->first('phone') }}</span>
            @endif
+        <br>
         <label for="address">Address:</label><br><p>
             <input type="text" placeholder="Address" oninput="this.className = ''" name="address"></p>
-            <p class="error" id="address"></p>
+            <span class="error text-danger" id="address"></span>
             @if ($errors->has('address'))
                 <span class="text-danger">{{ $errors->first('address') }}</span>
            @endif
+        <br>
         <label for="image">Profile Picture:</label><br><p>
         <div>
-            <input type="file" name="image" placeholder="Choose image" id="image">
+            <input type="file" name="image" placeholder="Choose image" id="image" accept=".png,.gif,.jpg,.jpeg">
         </div>
 
     <div class="col-md-12 mb-2">
@@ -137,22 +148,28 @@
              alt="" style="max-height: 100px;">
     </div>
         </p>
+        <br>
+        <div class="flex-container">
         <label for="gender">Gender:</label><br>
-        <p class="male">
+            <div class="gender-group">
+        <div class="male">
             <input type="radio" placeholder="Gender" value="1" oninput="this.className = ''" name="gender" checked>
             <label for="male">Male</label>
-        </p>
-        <p class="female">
+        </div>
+        <div class="female">
             <input type="radio" placeholder="Gender" value="2" oninput="this.className = ''" name="gender">
             <label for="female">Female</label>
-        </p>
+        </div>
+            </div>
+        </div>
+        <br>
         <label for="dob">Date of Birth:</label><br>
         <p><input type="date" placeholder="Date of Birth" oninput="this.className = ''" name="dob"></p>
-        <p class="error date-error" id="dob"></p>
+        <span class="error date-error text-danger" id="dob"></span>
         @if ($errors->has('dob'))
             <span class="text-danger">{{ $errors->first('dob') }}</span>
         @endif
-
+        <br>
 
     </div>
 
@@ -208,13 +225,25 @@
                 </td>
             </tr>
         </table>
-        <div>
-            <span class="error" id="level[]"></span>
-            <span class="error" id="college[]"></span>
-            <span class="error" id="university[]"></span>
-            <span class="error" id="start_date[]"></span>
-            <span class="error" id="end_date[]"></span>
-        </div>
+        <table>
+            <tr class="error-edu">
+                <td>
+                    <p class="error errors text-danger" id="level[]"></p>
+                </td>
+                <td>
+                    <p class="error errors text-danger" id="college[]"></p>
+                </td>
+                <td>
+                    <p class="error errors text-danger" id="university[]"></p>
+                </td>
+                <td>
+                    <p class="error errors text-danger" id="start_date[]"></p>
+                </td>
+                <td>
+                    <p class="error errors text-danger" id="end_date[]"></p>
+                </td>
+            </tr>
+        </table>
         <button class="btn btn-info" type="button" id="addMore" style="margin-bottom: 20px">
             <i class="fa fa-plus"></i>
             Add

@@ -14,7 +14,7 @@
         margin-left: 50px;
         font-family: Raleway;
         padding: 40px;
-        width: 50%;
+        width: 90%;
         min-width: 300px;
     }
 
@@ -30,15 +30,27 @@
         border: 1px solid #aaaaaa;
     }
 
-    .male{
-        width: 20%;
+    div.flex-container {
         display: flex;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
-    .female{
-        margin-left: 10px;
-        width: 20%;
+    div.gender-group {
         display: flex;
+        flex-direction: row;
+    }
+
+    div.gender-group > div {
+        margin-right: 10px;
+    }
+
+    tr.error-edu {
+        background-color: white !important;
+        border: none !important;
+    }
+    tr.error-edu td {
+        border: none;
     }
 
 
@@ -97,7 +109,7 @@
     @if($errors->any())
         @foreach($errors as $error)
             <span class="text-danger">{{$error}}</span>
-        @endforeacH
+        @endforeach
     @endif
 
     <input type="hidden" name="_method" value="PUT">
@@ -107,18 +119,18 @@
     <div class="tab">
         <label for="name">Name:</label><br><p>
             <input type="text" placeholder="Full name" oninput="this.className = ''" name="name" value="{{$data['record']->name}}"></p>
-        <p class="error fullname-error"></p>
+        <span class="error text-danger" id="name"></span><br>
         <label for="email">Email:</label><br> <p>
             <input type="email" placeholder="Email" oninput="this.className = ''" name="email" value="{{$data['record']->email}}"></p>
-        <p class="error email-error"></p>
+        <span class="error email-error text-danger" id="email"></span><br>
         <label for="phone">Phone Number:</label><br><p>
             <input type="number" placeholder="Phone" oninput="this.className = ''" name="phone" value="{{$data['record']->phone}}"></p>
-        <p class="error phone-error"></p>
+        <span class="error text-danger" id="phone"></span><br>
         <label for="address">Address:</label><br><p>
             <input type="text" placeholder="Address" oninput="this.className = ''" name="address" value="{{$data['record']->address}}"></p>
-        <p class="error address-error"></p>
+        <span class="error text-danger" id="address"></span><br>
         <br>
-        <img src="{{ asset('storage/images/'.$data['record']->image) }}" alt="Student Image" height="100px" width="100">
+        <img src="{{ asset('public/Image/'.$data['record']->image) }}" alt="Student Image" height="100px" width="100">
         <p>Replace Image</p>
         Image:
         <div id="imagePreviewContainer" style="display: none;">
@@ -127,30 +139,29 @@
 
         <p><input onchange="previewImage(this)" oninput="this.className = ''" name="image" type="file"></p>
         <br>
+        <div class="flex-container">
         <label for="gender">Gender:</label><br>
-        @if($data['record']->gender == 1)
-        <p class="male">
+                <div class="gender-group">
+                    @if($data['record']->gender == 1)
             <input type="radio" placeholder="Gender" value="1" oninput="this.className = ''" name="gender" checked>
             <label for="male">Male</label>
-        </p>
-        <p class="female">
+                    <br>
             <input type="radio" placeholder="Gender" value="2" oninput="this.className = ''" name="gender">
             <label for="female">Female</label>
-        </p>
+
             @elseif($data['record']->gender == 2)
-            <p class="male">
                 <input type="radio" placeholder="Gender" value="1" oninput="this.className = ''" name="gender" >
                 <label for="male">Male</label>
-            </p>
-            <p class="female">
+            <br>
                 <input type="radio" placeholder="Gender" value="2" oninput="this.className = ''" name="gender" checked>
                 <label for="female">Female</label>
-            </p>
         @endif
+                </div>
+        </div>
+        <br>
         <label for="dob">Date of Birth:</label><br>
         <p><input type="date" placeholder="Date of Birth" oninput="this.className = ''" name="dob" value="{{$data['record']->dob}}"></p>
-        <p class="error date-error"></p>
-
+        <span class="error date-error text-danger " id="dob"></span>
     </div>
 
     <div class="tab">
@@ -167,28 +178,57 @@
             <tr>
                 <td>
                     <input type="text" placeholder="level" name="level[]" value="{{$records->level}}">
+                    @if ($errors->has('level'))
+                        <span class="text-danger">{{ $errors->first('level') }}</span>
+                    @endif
                 </td>
                 <td>
 
                     <input type="text" placeholder="college" name="college[]" value="{{$records->college}}">
+                    @if ($errors->has('college'))
+                        <span class="text-danger">{{ $errors->first('college') }}</span>
+                    @endif
                 </td>
                 <td>
                     <input type="text" placeholder="university" name="university[]" value="{{$records->university}}">
+                    @if ($errors->has('university'))
+                        <span class="text-danger">{{ $errors->first('university') }}</span>
+                    @endif
                 </td>
                 <td>
-
                     <input type="date" placeholder="start date" name="start_date[]" value="{{$records->start_date}}">
+                    @if ($errors->has('start_date'))
+                        <span class="text-danger">{{ $errors->first('start_date') }}</span>
+                    @endif
                 </td>
                 <td>
-
                     <input type="date" placeholder="end date" name="end_date[]" value="{{$records->end_date}}">
+                    @if ($errors->has('end_date'))
+                        <span class="text-danger">{{ $errors->first('end_date') }}</span>
+                    @endif
                 </td>
                 <td>
                     <button class="btn btn-block btn-warning sa-warning remove_row "><i class="fa fa-trash"></i>Delete</button>
                 </td>
             </tr>
             @endforeach
-
+            <tr class="error-edu">
+                <td>
+                    <p class="error errors text-danger" id="level[]"></p>
+                </td>
+                <td>
+                    <p class="error errors text-danger" id="college[]"></p>
+                </td>
+                <td>
+                    <p class="error errors text-danger" id="university[]"></p>
+                </td>
+                <td>
+                    <p class="error errors text-danger" id="start_date[]"></p>
+                </td>
+                <td>
+                    <p class="error errors text-danger" id="end_date[]"></p>
+                </td>
+            </tr>
         </table>
         <button class="btn btn-info" type="button" id="addMore" style="margin-bottom: 20px">
             <i class="fa fa-plus"></i>
@@ -252,26 +292,49 @@
     }
 
     function validateForm() {
-        // This function deals with validation of the form fields
         var x, y, i, valid = true;
         x = document.getElementsByClassName("tab");
         y = x[currentTab].getElementsByTagName("input");
-        // A loop that checks every input field in the current tab:
-        for (i = 0; i < y.length; i++) {
-            // If a field is empty...
-            if (y[i].value == "") {
-                // add an "invalid" class to the field:
-                y[i].className += " invalid";
-                // and set the current valid status to false
-                valid = false;
 
+        // Clear all error messages
+        var errorElements = document.getElementsByClassName("error");
+        for (i = 0; i < errorElements.length; i++) {
+            errorElements[i].innerHTML = "";
+        }
+
+        // Validate each field
+        for (i = 0; i < y.length; i++) {
+            var value = y[i].value.trim();
+            var fieldName = y[i].name;
+
+            if (value === "" && fieldName !== "image") {
+                y[i].className += " invalid";
+                valid = false;
+                document.getElementById(fieldName).innerHTML = "This field is required.";
+            } else {
+                // Additional checks for specific fields
+                if (fieldName === "name" && !/^[a-zA-Z\s]+$/.test(value)) {
+                    y[i].className += " invalid";
+                    valid = false;
+                    document.getElementById("name").innerHTML = "Please enter a valid name (only text characters are allowed).";
+                } else if (fieldName === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+                    y[i].className += " invalid";
+                    valid = false;
+                    document.getElementById("email").innerHTML = "Please enter a valid email address.";
+                } else if (fieldName === "phone" && !/^[0-9]{10}$/.test(value)) {
+                    y[i].className += " invalid";
+                    valid = false;
+                    document.getElementById("phone").innerHTML = "Please enter a valid phone number.";
+                }
             }
         }
-        // If the valid status is true, mark the step as finished and valid:
+
+        // If the valid status is true, mark the step as finished and valid
         if (valid) {
             document.getElementsByClassName("step")[currentTab].className += " finish";
         }
-        return valid; // return the valid status
+
+        return valid;
     }
 
     function fixStepIndicator(n) {
